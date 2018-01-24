@@ -25,6 +25,15 @@ public class PlayerController : MonoBehaviour {
 		startTime = Time.time;
 	}
 
+/*	private void StartNewGame()
+	{
+		SetCountText ();
+		winText.text = "";
+		startTime = Time.time;
+		gameOver = false;
+		stopTimer = false;
+	}*/
+
 	void FixedUpdate()
 	{
 		
@@ -55,6 +64,10 @@ public class PlayerController : MonoBehaviour {
 			winText.text = "You Lost!";
 			gameOver = true;
 			stopTimer = true;
+		}
+
+		if (Input.GetKeyDown (KeyCode.N)) {
+			StartNewGame ();
 		}
 
 	}
