@@ -44,12 +44,14 @@ public class PlayerController : MonoBehaviour {
 			return;
 		}
 		float t = Time.time - startTime;
+		float time = 60;
+		t = time - t;
 
 		string minutes = ((int)t / 60).ToString ();
 		string seconds = (t % 60).ToString ("f0");
 		timerText.text = minutes + ":" + seconds;
 
-		if (minutes == "1") {
+		if (seconds == "0" && minutes == "0") {
 			winText.text = "You Lost!";
 			gameOver = true;
 			stopTimer = true;
