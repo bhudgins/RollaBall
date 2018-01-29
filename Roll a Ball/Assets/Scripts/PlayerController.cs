@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -15,24 +16,44 @@ public class PlayerController : MonoBehaviour {
 	private float startTime;
 	private bool stopTimer = false;
 	private bool gameOver = false;
+	private List<GameObject> pickups;
+
 
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
+
+		pickups = new List<GameObject> ();
+
+		//Get access to pickups
+		pickups.AddRange (GameObject.FindGameObjectsWithTag("Pickup"));
+
+		pickups.AddRange (GameObject.FindGameObjectsWithTag("UniquePickup"));
+
+		StartNewGame ();
+	}
+
+	private void StartNewGame()
+	{
 		count = 0;
 		SetCountText ();
 		winText.text = "";
 		startTime = Time.time;
-	}
 
-/*	private void StartNewGame()
-	{
-		SetCountText ();
-		winText.text = "";
-		startTime = Time.time;
+		foreach (var gameObj in pickups) {
+			gameObj.SetActive (true);
+
+			//put each pickup somewhere random
+			Vector3 randLocation = new Vector3(Random.Range(-8, 8), (float)0.5, Random.Range(-8, 8));
+
+			gameObj.transform.position = randLocation;
+		}
+
 		gameOver = false;
 		stopTimer = false;
-	}*/
+
+
+	}
 
 	void FixedUpdate()
 	{
@@ -67,7 +88,9 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown (KeyCode.N)) {
-			StartNewGame ();
+			//StartNewGame ();
+
+			SceneManager.LoadScene ("miniGame");
 		}
 
 	}
