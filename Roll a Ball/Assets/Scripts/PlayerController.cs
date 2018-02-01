@@ -71,20 +71,21 @@ public class PlayerController : MonoBehaviour {
 	void Update()
 	{
 		if (stopTimer) {
-			return;
-		}
-		float t = Time.time - startTime;
-		float time = 60;
-		t = time - t;
+			
+		} else {
+			float t = Time.time - startTime;
+			float time = 60;
+			t = time - t;
 
-		string minutes = ((int)t / 60).ToString ();
-		string seconds = (t % 60).ToString ("f0");
-		timerText.text = minutes + ":" + seconds;
+			string minutes = ((int)t / 60).ToString ();
+			string seconds = (t % 60).ToString ("f0");
+			timerText.text = minutes + ":" + seconds;
 
-		if (seconds == "0" && minutes == "0") {
-			winText.text = "You Lost!";
-			gameOver = true;
-			stopTimer = true;
+			if (seconds == "0" && minutes == "0") {
+				winText.text = "You Lost!";
+				gameOver = true;
+				stopTimer = true;
+			}
 		}
 
 		if (Input.GetKeyDown (KeyCode.N)) {
